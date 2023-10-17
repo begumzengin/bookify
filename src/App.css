@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
   background-color: #f2eceb;
 }
@@ -7,6 +11,8 @@ html {
   letter-spacing: 6px;
   color: #5c6e4a;
   text-align: center;
+  font-size: 40px;
+  margin-top: 10px;
 }
 
 .title-container{
