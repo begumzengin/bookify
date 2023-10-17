@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.app-title{
+  font-family: 'Martel', serif;
+  letter-spacing: 1vh;
+  text-align: center;
+  color: #c94927;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

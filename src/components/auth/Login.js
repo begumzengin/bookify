@@ -6,14 +6,20 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   return (
-    <div>
+    <div  >
       <form>
-        <h1>log in to your bookify account</h1>
-        <input type="email" placeholder="email" value={email}/>
-        <br/>
-        <input type="password" placeholder="password" value={password}/>
+        <h1 className='title'>log in to your bookify account</h1>
+          <div>
+            <div>
+              <input type="email" placeholder="email" value={email}/>
+            </div>
+          </div>
+          <div>
+            <div>
+              <input type="password"  placeholder="password" value={password}/>
+            </div>
+        </div>
       </form>
-        
     </div> 
   );
 }
