@@ -1,4 +1,5 @@
 import './App.css';
+import KanbanBoard from './components/kanban/KanbanBoard';
 import rubberPlant from './rubber-plant.png';
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
           </h1>
           <img className="app-logo" src={rubberPlant} alt="app logo"/>
       </div>
-
+      <br/>
+      <KanbanBoard></KanbanBoard>
     </>
   );
 }
