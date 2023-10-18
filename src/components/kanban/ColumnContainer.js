@@ -5,7 +5,8 @@ import PlusIcon from "../../icons/PlusIcon";
 import BookCard from "./BookCard";
 
 function ColumnContainer(props) {
-  const { column, deleteColumn, updateColumn, createBook, books } = props;
+  const { column, deleteColumn, updateColumn, createBook, books, deleteBook } =
+    props;
   const [editMode, setEditMode] = useState(false);
 
   return (
@@ -104,7 +105,7 @@ function ColumnContainer(props) {
       {/*column task container*/}
       <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
         {books.map((book) => (
-          <BookCard key={book.id} book={book} />
+          <BookCard key={book.id} book={book} deleteBook={deleteBook} />
         ))}
       </div>
 

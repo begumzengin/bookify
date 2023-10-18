@@ -43,6 +43,11 @@ const KanbanBoard = () => {
     setBooks([...books, newBook]);
   }
 
+  function deleteBook(id) {
+    const newBooks = books.filter((book) => book.id !== id);
+    setBooks(newBooks);
+  }
+
   return (
     <div
       className="
@@ -67,6 +72,7 @@ const KanbanBoard = () => {
                 updateColumn={updateColumn}
                 createBook={createBook}
                 books={books.filter((book) => book.columnId === col.id)}
+                deleteBook={deleteBook}
               />
             </div>
           ))}
