@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import TrashIcon from "../../icons/TrashIcon";
 import PenIcon from "../../icons/PenIcon";
+import PlusIcon from "../../icons/PlusIcon";
+import BookCard from "./BookCard";
 
 function ColumnContainer(props) {
-  const { column, deleteColumn, updateColumn } = props;
+  const { column, deleteColumn, updateColumn, createBook, books } = props;
   const [editMode, setEditMode] = useState(false);
 
   return (
@@ -100,10 +102,33 @@ function ColumnContainer(props) {
       </div>
 
       {/*column task container*/}
-      <div className="flex flex-grow">content</div>
+      <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
+        {books.map((book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
+      </div>
 
       {/*column footer*/}
-      <div>footer</div>
+      <button
+        onClick={() => {
+          createBook(column.id);
+        }}
+        className="
+          flex 
+          gap-2 
+          items-center 
+          border-pinkerBackgroundColor 
+          border-2 
+          rounded-md 
+          p-4 
+          border-x-columnBackgroundColor 
+          hover:bg-backgroundColor 
+          hover:text-pinkerBackgroundColor 
+          active:bg-buttonBackgroundColor"
+      >
+        <PlusIcon />
+        add book
+      </button>
     </div>
   );
 }

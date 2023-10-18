@@ -4,6 +4,7 @@ import ColumnContainer from "./ColumnContainer";
 
 const KanbanBoard = () => {
   const [columns, setColumns] = useState([]);
+  const [books, setBooks] = useState([]);
 
   function createNewColumn() {
     const columnToAdd = {
@@ -29,6 +30,19 @@ const KanbanBoard = () => {
     setColumns(newColumns);
   }
 
+  function createBook(columnId) {
+    console.log(books.map((book) => book.title));
+    const newBook = {
+      id: generateID(),
+      columnId,
+      title: `Book ${books.length + 1}`,
+      author: `Author ${books.length + 1}`,
+      published: `${books.length + 1}`,
+    };
+
+    setBooks([...books, newBook]);
+  }
+
   return (
     <div
       className="
@@ -51,6 +65,8 @@ const KanbanBoard = () => {
                 column={col}
                 deleteColumn={deleteColumn}
                 updateColumn={updateColumn}
+                createBook={createBook}
+                books={books.filter((book) => book.columnId === col.id)}
               />
             </div>
           ))}
