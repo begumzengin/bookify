@@ -20,6 +20,15 @@ const KanbanBoard = () => {
     setColumns(filteredColumns);
   }
 
+  function updateColumn(id, title) {
+    const newColumns = columns.map((col) => {
+      if (col.id !== id) return col;
+      return { ...col, title };
+    });
+
+    setColumns(newColumns);
+  }
+
   return (
     <div
       className="
@@ -41,6 +50,7 @@ const KanbanBoard = () => {
                 key={col.id}
                 column={col}
                 deleteColumn={deleteColumn}
+                updateColumn={updateColumn}
               />
             </div>
           ))}

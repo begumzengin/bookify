@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import TrashIcon from "../../icons/TrashIcon";
+import PenIcon from "../../icons/PenIcon";
 
 function ColumnContainer(props) {
-  const { column, deleteColumn } = props;
+  const { column, deleteColumn, updateColumn } = props;
+  const [editMode, setEditMode] = useState(false);
+
   return (
     <div
       className="
@@ -47,8 +50,38 @@ function ColumnContainer(props) {
           >
             0
           </div>
-          {column.title}
+          {!editMode && column.title}
+          {editMode && (
+            <input
+              className="bg-columnBackgroundColor focus:border-rose-500 border-rounded outline-none px-2"
+              value={column.title}
+              onChange={(e) => updateColumn(column.id, e.target.value)}
+              autoFocus
+              onBlur={() => {
+                setEditMode(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key !== "Enter") return;
+                setEditMode(false);
+              }}
+            />
+          )}
         </div>
+        <button
+          onClick={() => {
+            setEditMode(true);
+          }}
+          className="
+          stroke-pinkerBackgroundColor
+            hover:stroke-white
+            hover:bg-pinkerBackgroundColor
+              rounded
+              px-1
+              py-2
+            "
+        >
+          <PenIcon />
+        </button>
         <button
           onClick={() => {
             deleteColumn(column.id);

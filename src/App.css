@@ -6,8 +6,8 @@ html {
   background-color: #f2eceb;
 }
 
-.app-title{
-  font-family: 'Rozha One', serif;
+.app-title {
+  font-family: "Rozha One", serif;
   letter-spacing: 6px;
   color: #5c6e4a;
   text-align: center;
@@ -15,15 +15,27 @@ html {
   margin-top: 10px;
 }
 
-.title-container{
+.title-container {
   display: flex;
   justify-content: center;
 }
 
-.app-logo{
+.app-logo {
   width: 50px;
   height: 50px;
   margin-left: 5px;
   justify-content: center;
   margin-top: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-pinkerBackgroundColor rounded-xl;
 }
