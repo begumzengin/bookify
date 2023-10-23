@@ -48,6 +48,15 @@ const KanbanBoard = () => {
     setBooks(newBooks);
   }
 
+  function updateBook(id, title) {
+    const newBooks = books.map((book) => {
+      if (book.id !== id) return book;
+      return { ...book, title };
+    });
+
+    setBooks(newBooks);
+  }
+
   return (
     <div
       className="
@@ -73,6 +82,7 @@ const KanbanBoard = () => {
                 createBook={createBook}
                 books={books.filter((book) => book.columnId === col.id)}
                 deleteBook={deleteBook}
+                updateBook={updateBook}
               />
             </div>
           ))}
