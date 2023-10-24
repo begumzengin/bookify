@@ -1,4 +1,5 @@
 import "./App.css";
+import AuthDetails from "./components/auth/AuthDetails";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import KanbanBoard from "./components/kanban/KanbanBoard";
@@ -15,6 +16,7 @@ function App() {
       {/* <KanbanBoard></KanbanBoard> */}
       <Login></Login>
       <SignUp></SignUp>
+      <AuthDetails />
     </>
   );
 }
