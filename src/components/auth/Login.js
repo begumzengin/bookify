@@ -1,40 +1,55 @@
-import React, {useState} from 'react'
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import React, { useState } from "react";
+import { auth } from "../../firebase";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const styles = {
-    logincard: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      borderRadius: "8px",
-      backgroundColor: "#f7d8df",
-      marginRight: "30%",
-      marginLeft: "30%",
-    }
+  const logIn = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((useCredential) => {
+        console.log(useCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   return (
     <>
-    <div className="styles.logincard">
-      <form>
-        <h2>log in to your bookify account</h2>
-            <span>
-              <input type="email" value={email}/>
-            </span>
-            <br/>
-            <span>
-              <label>password </label>
-              <input type="password"  placeholder="password" value={password}/>
-            </span>
-        
-      </form>
+      <div>
+        <form onSubmit={logIn}>
+          <div className="login-header">
+            <h2 className="p-5 mb-5">log in to your bookify account</h2>
+            <input
+              className="border border-pinkerBackgroundColor rounded-lg w-[300px]"
+              type="email"
+              placeholder=" enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+            <br />
+            <input
+              className="border border-pinkerBackgroundColor rounded-lg w-[300px]"
+              type="password"
+              placeholder=" enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+            <br />
+            <button
+              type="submit"
+              className="border border-columnBackgroundColor rounded-md bg-pinkerBackgroundColor text-backgroundColor w-[100px]"
+            >
+              log in
+            </button>
+          </div>
+        </form>
       </div>
-    </> 
+    </>
   );
-}
+};
 
-export default Login
+export default Login;

@@ -3,10 +3,7 @@ import PlusIcon from "../../icons/PlusIcon";
 import ColumnContainer from "./ColumnContainer";
 import {
   DndContext,
-  DragEndEvent,
-  DragOverEvent,
   DragOverlay,
-  DragStartEvent,
   PointerSensor,
   useSensor,
   useSensors,
