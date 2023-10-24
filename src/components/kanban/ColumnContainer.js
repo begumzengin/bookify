@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import TrashIcon from "../../icons/TrashIcon";
 import PenIcon from "../../icons/PenIcon";
 import PlusIcon from "../../icons/PlusIcon";
 import BookCard from "./BookCard";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function ColumnContainer(props) {
   const {
@@ -14,10 +16,59 @@ function ColumnContainer(props) {
     deleteBook,
     updateBook,
   } = props;
+
   const [editMode, setEditMode] = useState(false);
+
+  const booksIds = useMemo(() => {
+    return books.map((book) => book.id);
+  }, [books]);
+
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: column.id,
+    data: {
+      type: "Column",
+      column,
+    },
+    disabled: editMode,
+  });
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
+
+  if (isDragging) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="
+        bg-columnBackgroundColor
+        opacity-40
+        border-2
+        border-pinkerBackgroundColor
+        w-[350px]
+        h-[500px]
+        max-h-[500px]
+        rounded-md
+        flex
+        flex-col
+        "
+      ></div>
+    );
+  }
 
   return (
     <div
+      ref={setNodeRef}
+      style={style}
       className="
     bg-columnBackgroundColor
     w-[350px]
@@ -30,6 +81,8 @@ function ColumnContainer(props) {
     >
       {/*column title*/}
       <div
+        {...attributes}
+        {...listeners}
         className="
         bg-backgroundColor
           text-md
@@ -58,7 +111,7 @@ function ColumnContainer(props) {
           text-sm 
           rounded-full"
           >
-            0
+            {books.length}
           </div>
           {!editMode && column.title}
           {editMode && (
@@ -82,7 +135,7 @@ function ColumnContainer(props) {
             setEditMode(true);
           }}
           className="
-          stroke-pinkerBackgroundColor
+            stroke-pinkerBackgroundColor
             hover:stroke-white
             hover:bg-pinkerBackgroundColor
               rounded
@@ -111,14 +164,16 @@ function ColumnContainer(props) {
 
       {/*column task container*/}
       <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
-        {books.map((book) => (
-          <BookCard
-            key={book.id}
-            book={book}
-            deleteBook={deleteBook}
-            updateBook={updateBook}
-          />
-        ))}
+        <SortableContext items={booksIds}>
+          {books.map((book) => (
+            <BookCard
+              key={book.id}
+              book={book}
+              deleteBook={deleteBook}
+              updateBook={updateBook}
+            />
+          ))}
+        </SortableContext>
       </div>
 
       {/*column footer*/}

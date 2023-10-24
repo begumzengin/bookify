@@ -1,18 +1,68 @@
 import React, { useState } from "react";
 import TrashIcon from "../../icons/TrashIcon";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function BookCard({ book, deleteBook, updateBook }) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(false);
+
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: book.id,
+    data: {
+      type: "Book",
+      book,
+    },
+    disabled: editMode,
+  });
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
 
   const toggleEditMode = () => {
     setEditMode((prev) => !prev);
     setMouseIsOver(false);
   };
 
+  if (isDragging) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="
+          opacity-30
+          bg-backgroundColor
+          p-2.5
+          h-[100px]
+          items-center
+          flex
+          text-left
+          rounded-xl
+          border-2
+          border-pinkerBackgroundColor
+          cursor-grab
+          relative
+        "
+      ></div>
+    );
+  }
+
   if (editMode) {
     return (
       <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
         className="
         bg-backgroundColor 
         p-2.5 
@@ -55,6 +105,10 @@ function BookCard({ book, deleteBook, updateBook }) {
 
   return (
     <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
       onClick={toggleEditMode}
       onMouseEnter={() => {
         setMouseIsOver(true);
