@@ -30,7 +30,6 @@ html {
 
 .login-header {
   font-family: "Gabarito", sans-serif;
-  letter-spacing: 2px;
   font-size: 20px;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -45,6 +46,14 @@ const Login = () => {
             >
               log in
             </button>
+            <br />
+            <h4>if you don't have a bookify account yet: </h4>
+            <Link
+              to="/sign-up"
+              className="border border-columnBackgroundColor bg-pinkerBackgroundColor rounded-md text-backgroundColor w-[100px] text-center"
+            >
+              sign up
+            </Link>
           </div>
         </form>
       </div>

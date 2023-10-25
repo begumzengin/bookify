@@ -15,7 +15,6 @@ function App() {
       <br />
       {/* <KanbanBoard></KanbanBoard> */}
       <Login></Login>
-      <SignUp></SignUp>
       <AuthDetails />
     </>
   );
