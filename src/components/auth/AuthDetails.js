@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "@firebase/auth";
 import { auth } from "../../firebase";
-import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AuthDetails = () => {
   const [authUser, setAuthUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -24,7 +25,7 @@ const AuthDetails = () => {
     signOut(auth)
       .then(() => {
         console.log("sign out successful");
-        <Navigate to="/" />;
+        navigate("/");
       })
       .catch((error) => console.log(error));
   }

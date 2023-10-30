@@ -91,6 +91,7 @@ const KanbanBoard = () => {
     });
 
     setBooks([...books, newBook]);
+    console.log("rendered");
   }
 
   function deleteBook(id) {

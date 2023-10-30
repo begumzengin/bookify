@@ -1,17 +1,19 @@
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const logIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((useCredential) => {
         console.log(useCredential);
+        navigate("/kanban");
       })
       .catch((error) => {
         console.log(error);
@@ -40,14 +42,12 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             ></input>
             <br />
-            <Link to="/kanban">
-              <button
-                type="submit"
-                className="border border-columnBackgroundColor rounded-md bg-pinkerBackgroundColor text-backgroundColor w-[100px]"
-              >
-                log in
-              </button>
-            </Link>
+            <button
+              type="submit"
+              className="border border-columnBackgroundColor rounded-md bg-pinkerBackgroundColor text-backgroundColor w-[100px]"
+            >
+              log in
+            </button>
 
             <br />
             <h4>if you don't have a bookify account yet: </h4>
