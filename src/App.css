@@ -18,6 +18,8 @@ html {
 .title-container {
   display: flex;
   justify-content: center;
+  position: sticky;
+  top: 0;
 }
 
 .app-logo {

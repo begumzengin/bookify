@@ -40,12 +40,15 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             ></input>
             <br />
-            <button
-              type="submit"
-              className="border border-columnBackgroundColor rounded-md bg-pinkerBackgroundColor text-backgroundColor w-[100px]"
-            >
-              log in
-            </button>
+            <Link to="/kanban">
+              <button
+                type="submit"
+                className="border border-columnBackgroundColor rounded-md bg-pinkerBackgroundColor text-backgroundColor w-[100px]"
+              >
+                log in
+              </button>
+            </Link>
+
             <br />
             <h4>if you don't have a bookify account yet: </h4>
             <Link

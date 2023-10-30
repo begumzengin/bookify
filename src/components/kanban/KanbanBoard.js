@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import PlusIcon from "../../icons/PlusIcon";
 import ColumnContainer from "./ColumnContainer";
-import { Menubar } from "primereact/menubar";
+
 import {
   DndContext,
   DragOverlay,
@@ -12,6 +12,10 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import BookCard from "./BookCard";
+
+import { database } from "../../firebase";
+import { ref, set, get, push } from "firebase/database";
+import Navbar from "../Navbar";
 
 const KanbanBoard = () => {
   const defaultCols = [
@@ -78,6 +82,13 @@ const KanbanBoard = () => {
       author: `Author ${books.length + 1}`,
       published: `${books.length + 1}`,
     };
+
+    set(ref(database, "books/book/"), {
+      bookId: newBook.id,
+      title: newBook.title,
+      author: newBook.author,
+      published: newBook.published,
+    });
 
     setBooks([...books, newBook]);
   }
@@ -175,143 +186,38 @@ const KanbanBoard = () => {
     }
   }
 
-  const items = [
-    {
-      label: "File",
-      icon: "pi pi-fw pi-file",
-      items: [
-        {
-          label: "New",
-          icon: "pi pi-fw pi-plus",
-          items: [
-            {
-              label: "Bookmark",
-              icon: "pi pi-fw pi-bookmark",
-            },
-            {
-              label: "Video",
-              icon: "pi pi-fw pi-video",
-            },
-          ],
-        },
-        {
-          label: "Delete",
-          icon: "pi pi-fw pi-trash",
-        },
-        {
-          separator: true,
-        },
-        {
-          label: "Export",
-          icon: "pi pi-fw pi-external-link",
-        },
-      ],
-    },
-    {
-      label: "Edit",
-      icon: "pi pi-fw pi-pencil",
-      items: [
-        {
-          label: "Left",
-          icon: "pi pi-fw pi-align-left",
-        },
-        {
-          label: "Right",
-          icon: "pi pi-fw pi-align-right",
-        },
-        {
-          label: "Center",
-          icon: "pi pi-fw pi-align-center",
-        },
-        {
-          label: "Justify",
-          icon: "pi pi-fw pi-align-justify",
-        },
-      ],
-    },
-    {
-      label: "Users",
-      icon: "pi pi-fw pi-user",
-      items: [
-        {
-          label: "New",
-          icon: "pi pi-fw pi-user-plus",
-        },
-        {
-          label: "Delete",
-          icon: "pi pi-fw pi-user-minus",
-        },
-        {
-          label: "Search",
-          icon: "pi pi-fw pi-users",
-          items: [
-            {
-              label: "Filter",
-              icon: "pi pi-fw pi-filter",
-              items: [
-                {
-                  label: "Print",
-                  icon: "pi pi-fw pi-print",
-                },
-              ],
-            },
-            {
-              icon: "pi pi-fw pi-bars",
-              label: "List",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: "Events",
-      icon: "pi pi-fw pi-calendar",
-      items: [
-        {
-          label: "Edit",
-          icon: "pi pi-fw pi-pencil",
-          items: [
-            {
-              label: "Save",
-              icon: "pi pi-fw pi-calendar-plus",
-            },
-            {
-              label: "Delete",
-              icon: "pi pi-fw pi-calendar-minus",
-            },
-          ],
-        },
-        {
-          label: "Archive",
-          icon: "pi pi-fw pi-calendar-times",
-          items: [
-            {
-              label: "Remove",
-              icon: "pi pi-fw pi-calendar-minus",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: "Quit",
-      icon: "pi pi-fw pi-power-off",
-    },
-  ];
-
   return (
     <>
-      <div>
-        <Menubar
-          className="h-[40px] flex border border-columnBackgroundColor justify-between sticky top-0 bg-columnBackgroundColor text-backgroundColor "
-          model={items}
-        />
+      <Navbar />
+
+      <div className="flex justify-center p-10 mb-5">
+        <button
+          onClick={createNewColumn}
+          className="
+                items-center
+                justify-center
+                h-[60px]
+                w-[250px]
+                cursor-pointer
+                rounded-lg
+                bg-buttonBackgroundColor
+                border-2
+                border-columnBackgroundColor
+                p-4
+                ring-rose-500
+                hover:ring-2
+                flex
+                gap-2
+                "
+        >
+          <PlusIcon></PlusIcon>add column
+        </button>
       </div>
+
       <div
         className="
             m-auto
             flex
-            min-h-screen
             w-full
             items-center
             overflow-x-auto
@@ -344,27 +250,6 @@ const KanbanBoard = () => {
                 ))}
               </SortableContext>
             </div>
-
-            <button
-              onClick={createNewColumn}
-              className="
-                h-[60px]
-                w-[350px]
-                min-w-[350px]
-                cursor-pointer
-                rounded-lg
-                bg-buttonBackgroundColor
-                border-2
-                border-columnBackgroundColor
-                p-4
-                ring-rose-500
-                hover:ring-2
-                flex
-                gap-2
-                "
-            >
-              <PlusIcon></PlusIcon>add column
-            </button>
           </div>
           {createPortal(
             <DragOverlay>

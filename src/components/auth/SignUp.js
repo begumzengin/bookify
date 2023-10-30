@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase";
-import rubberPlant from "../../rubber-plant.png";
+import Navbar from "../Navbar";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -20,10 +20,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="title-container">
-        <h1 className="app-title">bookify</h1>
-        <img className="app-logo" src={rubberPlant} alt="app logo" />
-      </div>
+      <Navbar />
       <br />
       <div>
         <form onSubmit={signUp}>

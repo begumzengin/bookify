@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "@firebase/auth";
 import { auth } from "../../firebase";
+import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 
 const AuthDetails = () => {
   const [authUser, setAuthUser] = useState(null);
@@ -19,16 +20,17 @@ const AuthDetails = () => {
     };
   }, []);
 
-  const userSignOut = () => {
+  function userSignOut() {
     signOut(auth)
       .then(() => {
         console.log("sign out successful");
+        <Navigate to="/" />;
       })
       .catch((error) => console.log(error));
-  };
+  }
 
   return (
-    <div className="text-center mt-5">
+    <div>
       {authUser ? (
         <>
           <p>{`signed in as ${authUser.email}`}</p>
