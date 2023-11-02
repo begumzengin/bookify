@@ -11,6 +11,7 @@ const AuthDetails = () => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
         setAuthUser(user);
+        navigate("/kanban");
       } else {
         setAuthUser(null);
       }
