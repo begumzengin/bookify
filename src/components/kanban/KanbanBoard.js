@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import PlusIcon from "../../icons/PlusIcon";
 import ColumnContainer from "./ColumnContainer";
 
@@ -14,7 +14,7 @@ import { createPortal } from "react-dom";
 import BookCard from "./BookCard";
 
 import { database } from "../../firebase";
-import { ref, set, get, push } from "firebase/database";
+import { ref, set } from "firebase/database";
 import Navbar from "../Navbar";
 
 const KanbanBoard = () => {
@@ -35,7 +35,7 @@ const KanbanBoard = () => {
 
   const [columns, setColumns] = useState(defaultCols);
   const [books, setBooks] = useState([]);
-
+  localStorage.setItem("books", JSON.stringify(books));
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
   const [activeColumn, setActiveColumn] = useState(null);
@@ -97,6 +97,7 @@ const KanbanBoard = () => {
   function deleteBook(id) {
     const newBooks = books.filter((book) => book.id !== id);
     setBooks(newBooks);
+    localStorage.setItem("books", JSON.stringify(newBooks));
   }
 
   function updateBook(id, title) {
@@ -106,6 +107,7 @@ const KanbanBoard = () => {
     });
 
     setBooks(newBooks);
+    localStorage.setItem("books", JSON.stringify(newBooks));
   }
 
   function onDragStart(event) {

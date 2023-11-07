@@ -180,6 +180,7 @@ function ColumnContainer(props) {
       <button
         onClick={() => {
           createBook(column.id);
+          localStorage.setItem("books", JSON.stringify(books));
         }}
         className="
           flex 
